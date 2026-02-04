@@ -12,7 +12,7 @@
 
 **Requirement:** Run a reasoning-capable LLM locally to support GRC/security workflows while minimizing data-exposure risk.
 
-**Target roles:** GRC Analyst, Security Analyst (non-SOC focus)
+**Target roles:** GRC Analyst, Cybersecurity Analyst
 
 **Primary deliverables:** Threat models, risk statements, control mappings, policy drafts, incident response checklists, vendor security questionnaires.
 
