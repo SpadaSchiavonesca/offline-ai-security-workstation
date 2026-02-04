@@ -122,15 +122,40 @@ I used the **LM Studio Community** listing for Qwen3 14B because the model detai
 
 ## 📋 Evidence (Proof of Execution)
 
-See `/screenshots/` folder for verification:
-- `hardware-vulkan.png` — GPU detected with Vulkan backend
-- `reasoning-mode-output.png` — Threat model generation with tok/sec metrics
-- `fast-mode-output.png` — `/no_think` mode demonstration
+### Hardware Detection (Vulkan Backend)
+![AMD RX 6700 XT detected with Vulkan](screenshots/hardware-vulkan.png)
 
-**Measured results:**
-- **Reasoning mode:** 24.95 tok/sec on threat modeling prompt (16.56s thinking time)
-- **Fast mode:** 26.22 tok/sec with `/no_think` flag (<1s response time)
+**What this shows:** LM Studio successfully detected my AMD Radeon RX 6700 XT with 12GB VRAM using the Vulkan backend. GPU is enabled and ready for inference.
+
+---
+
+### Reasoning Mode Output (Threat Modeling)
+![Threat modeling with thinking mode](screenshots/reasoning-mode-output.png)
+
+**What this shows:**
+- **Prompt:** "Write a one-sentence threat model for a web API that handles user authentication"
+- **Thinking time:** 16.56 seconds (model reasoning before output)
+- **Generation speed:** 24.95 tokens/second
+- **Output:** Comprehensive threat analysis identifying SQLi, brute-force, and token exposure risks
+
+---
+
+### Fast Mode Output (`/no_think`)
+![Fast mode with no thinking](screenshots/fast-mode-output.png)
+
+**What this shows:**
+- **Prompt:** "Write a one-sentence summary of NIST 800-53 /no_think"
+- **Total time:** 0.87 seconds (instant response)
+- **Generation speed:** 26.22 tokens/second
+- **Output:** Accurate summary with no pre-thinking delay
+
+---
+
+**Measured results summary:**
 - **VRAM usage:** 9.5GB / 12GB during inference
+- **Reasoning mode:** 24.95 tok/sec (with 10-20s thinking)
+- **Fast mode:** 26.22 tok/sec (instant)
+
 
 ---
 
