@@ -40,17 +40,43 @@
 
 ### Why I chose LM Studio (vs Jan)
 
-I evaluated Jan and LM Studio as local LLM desktop clients and chose **LM Studio** for this portfolio because its offline and on-device data handling is clearly documented and easy to validate.
+I evaluated Jan and LM Studio as the two leading local LLM desktop clients. Both are strong choices for offline AI work, but I chose **LM Studio** for this specific project based on my hardware (AMD GPU) and portfolio goals.
 
-**LM Studio documentation states:**
-- LM Studio can operate entirely offline once model files are downloaded
-- Core functions like using downloaded LLMs, chatting with documents (RAG), and running a local server do not require internet connectivity
-- "Nothing you enter into LM Studio when chatting with LLMs leaves your device"
-- Documents used for chat/RAG stay on your machine and are processed locally
+#### Comparison
 
-**Source:** [LM Studio Offline Operation](https://lmstudio.ai/docs/app/offline)
+| Feature | Jan | LM Studio |
+|:--------|:----|:----------|
+| **License** | ✅ Open source (AGPLv3) | ❌ Proprietary |
+| **Privacy approach** | ✅ Explicit: "zero data collection" | ✅ States nothing leaves device |
+| **Offline documentation** | ⚠️ Privacy docs focus on cloud vs local distinction | ✅ Dedicated offline operation guide |
+| **AMD GPU (Vulkan) support** | ⚠️ Supported but less documented | ✅ Well-documented, tested |
+| **Ease of setup (AMD)** | ⚠️ Requires some configuration | ✅ Auto-detects Vulkan, simpler |
+| **Model discovery** | Good | ✅ Excellent (integrated search/download) |
+| **Community** | Growing | ✅ Larger, more AMD/Vulkan examples |
 
-**GRC rationale:** For threat modeling, policy drafts, control narratives, and incident-response notes, the safest default is a local workflow with minimal data egress. LM Studio's offline guidance is explicit and easy to validate by disconnecting the network after model download.
+**Sources:**
+- Jan Privacy Approach: https://www.jan.ai/docs/desktop/privacy
+- Jan GitHub (AGPLv3): https://github.com/janhq/jan
+- LM Studio Offline Docs: https://lmstudio.ai/docs/app/offline
+
+#### Why I chose LM Studio for this project
+
+**Decision factors:**
+1. **AMD/Vulkan documentation:** LM Studio has clearer, more extensive documentation for AMD GPU setup via Vulkan, with many community examples for RX 6700 XT specifically
+2. **Offline operation clarity:** LM Studio has a dedicated "Offline Operation" page that explicitly states what works offline and what doesn't, making it easy to validate for this portfolio
+3. **Portfolio presentation:** The polished UI and clear hardware detection screens make better screenshots for employer review
+4. **Setup speed:** For this demonstration, LM Studio's auto-detection of Vulkan and simpler configuration saved setup time
+
+#### Why you might prefer Jan instead
+
+**Jan's advantages:**
+- ✅ **Open source:** Full code transparency (AGPLv3 license) — important if you need to audit the client code
+- ✅ **Privacy-first design:** Explicit privacy documentation and "zero data collection" stance
+- ✅ **Flexibility:** More control over configuration and data folder management
+- ✅ **Philosophy:** If open source is a requirement (not just nice-to-have), Jan is the clear choice
+
+**For my GRC portfolio goal** (demonstrating secure, offline AI workflows on AMD hardware), LM Studio's documentation clarity and AMD/Vulkan maturity outweighed Jan's open-source advantage. For a project specifically showcasing open-source tool selection, Jan would be the better choice.
+
 
 ---
 
