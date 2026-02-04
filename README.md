@@ -123,7 +123,7 @@ I used the **LM Studio Community** listing for Qwen3 14B because the model detai
 ## 📋 Evidence (Proof of Execution)
 
 ### Hardware Detection (Vulkan Backend)
-![AMD RX 6700 XT detected with Vulkan](screenshots/hardware-vulkan.png)
+
 
 **What this shows:** LM Studio successfully detected my AMD Radeon RX 6700 XT with 12GB VRAM using the Vulkan backend. GPU is enabled and ready for inference.
 
