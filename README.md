@@ -158,18 +158,12 @@ I used the **LM Studio Community** listing for Qwen3 14B because the model detai
 
 ---
 
-# 🚀 Local GRC & Security AI Workstation (Qwen3 14B)
-
-A comprehensive guide to setting up a privacy-first, offline LLM workstation using **LM Studio** and **Qwen3 14B** on AMD/NVIDIA hardware. This project demonstrates how to leverage local AI for sensitive GRC (Governance, Risk, and Compliance) and Security tasks without compromising data privacy.
-
----
-
-## 🛠️ Setup Guide (Step-by-Step)
+## 🚀 Setup Guide (Step-by-Step)
 
 ### Prerequisites
-* **OS:** Windows 10/11 or Linux
-* **Hardware:** AMD GPU with 8GB+ VRAM (or NVIDIA with CUDA support)
-* **Storage:** 20GB free disk space
+- Windows 10/11 (or Linux)
+- AMD GPU with 8GB+ VRAM (or NVIDIA with CUDA support)
+- 20GB free disk space
 
 ### 1. Install LM Studio
 * Download from: [lmstudio.ai](https://lmstudio.ai)
