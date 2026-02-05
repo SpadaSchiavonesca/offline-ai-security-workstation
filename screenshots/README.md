@@ -8,7 +8,8 @@ Evidence of working system and GRC outputs.
 - `fast-mode-output.png` - Example of high-speed generation.
 
 **GRC Artifacts:**
-- `stride-threat-model.png` - Full STRIDE analysis generated locally.
+- `soc2-analysis.png` - SOC 2 Type II exception analysis & risk mapping.
 - `gap-analysis.png` - NIST 800-53 technical audit of S3 bucket policy.
 - `risk-statement.png` - Quantitative risk assessment and mitigation plan.
+
 
