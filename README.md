@@ -47,7 +47,7 @@ I evaluated Jan and LM Studio as the two leading local LLM desktop clients. Both
 | Feature | Jan | LM Studio |
 |:--------|:----|:----------|
 | **License** | ✅ Open source (Apache 2.0) [Jan repo] | ❌ Proprietary |
-| **Privacy approach** | ✅ Explicit: "zero data collection" | ✅ States nothing leaves device |
+| **Privacy approach** | ✅ “Zero data collection until you say so” (optional analytics) | ✅ “Nothing you enter… leaves your device” (offline mode) |
 | **Offline documentation** | ⚠️ Privacy docs focus on cloud vs local distinction | ✅ Dedicated offline operation guide |
 | **AMD GPU (Vulkan) support** | ⚠️ Supported but less documented | ✅ Well-documented, tested |
 | **Ease of setup (AMD)** | ⚠️ Requires some configuration | ✅ Auto-detects Vulkan, simpler |
