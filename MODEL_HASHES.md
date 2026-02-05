@@ -11,7 +11,7 @@ Model source (Hugging Face):
 
 | Artifact filename | Quant | File size (bytes) | SHA-256 | Date recorded |
 | :--- | :--- | ---: | :--- | :---: |
-| `Qwen3-14B-Q4_K_M.gguf` | `Q4_K_M` | 9001753376 | `712C0791D5124D3DD6D1E4968DE1201207AFEAE49C6E10FBEB9C58FE00C58555` | 2026-02-05 |
+| `Qwen3-14B-Q4_K_M.gguf` | `Q4_K_M` | 9001753376 | `712C0791D5124D3DD6D1E4968DE1201207AFEAE49C6E10FBEB9C58FE00C58555` | 2026-02-04 |
 
 ---
 
