@@ -158,8 +158,6 @@ I used the **LM Studio Community** listing for Qwen3 14B because the model detai
 
 ---
 
-## 🚀 Setup Guide (Step-by-Step)
-
 ## 🛠️ Setup Guide (Step-by-Step)
 
 ### Prerequisites
