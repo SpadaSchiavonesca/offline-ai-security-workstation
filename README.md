@@ -265,12 +265,25 @@ This project demonstrates the following professional competencies:
 
 ---
 
-## ⚖️ License & Disclaimer
+## ⚖️ License & Professional Disclaimer
 
-**License:** MIT  
-**Model:** Qwen3 (Apache 2.0)
+**License:** MIT | **Model:** Qwen3 (Apache 2.0)
 
-**Disclaimer:** AI-generated security content must be reviewed by qualified professionals. This tool assists human decision-making but does not replace expert judgment.
+> [!CAUTION]
+> **Human-in-the-Loop (HITL) Requirement**
+> This workstation is a **decision-support tool**, not a decision-maker. In accordance with NIST AI RMF and industry best practices, all AI-generated outputs (risk statements, control mappings, or policy drafts) must be reviewed, validated, and signed off by a qualified human professional.
+
+### 1. Hallucination & Accuracy Warning
+Large Language Models (LLMs) can "hallucinate" or provide factually incorrect information, including citing non-existent regulatory sub-clauses or misinterpreting framework overlaps (e.g., NIST to ISO crosswalks). **Always verify citations against official source text** (e.g., NIST CSRC, ISO.org, or the SEC/OCC/HHS portals).
+
+### 2. Professional Accountability
+The use of this tool does not shift the burden of accountability. The human analyst remains the **Risk Owner**. Any security failures or compliance gaps resulting from unverified AI guidance are the sole responsibility of the analyst and their organization.
+
+### 3. No Legal or Regulatory Advice
+Outputs from this workstation do not constitute legal advice, formal audit opinions, or guaranteed regulatory compliance. This project is for **demonstration and productivity enhancement purposes** only.
+
+### 4. Local Data Security
+While this setup mitigates third-party "data-in-flight" risk, the user is responsible for "data-at-rest" security. Ensure the host machine utilizes Full Disk Encryption (FDE), strictly managed access controls, and periodic log reviews to maintain the integrity of the local GRC environment.
 
 ---
 
