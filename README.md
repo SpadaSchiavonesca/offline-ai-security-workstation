@@ -84,7 +84,8 @@ I evaluated Jan and LM Studio as the two leading local LLM desktop clients. Both
 
 I used the **LM Studio Community** listing for Qwen3 14B because the model details clearly identify:
 - Original model (Qwen3-14B by Qwen team)
-- - GGUF conversion/quantization **Provenance** (bartowski)
+**Note:** LM Studio's community listing may display this as `lmstudio-community/Qwen3-14B-GGUF`, 
+but the GGUF quantization is performed by bartowski (verifiable on Hugging Face).
 - Runtime compatibility (llama.cpp release)
 
 **Rationale:** For portfolio work, provenance matters. Traceable origin supports reproducibility for reviewers who want to replicate the setup.
@@ -245,31 +246,38 @@ To mitigate risks identified in the **OWASP Top 10 for LLM Applications (2025)**
 
 ### 🔒 Configuration Controls (LM Studio & OS)
 
-The following features have been disabled or hardened to reduce the attack surface:
+> [!NOTE]
+> **OWASP 2025 Update**
+> This hardening guide reflects the **OWASP Top 10 for LLM Applications 2025** 
+> (released November 2024), which reorganized and expanded the original 2023 list 
+> to address emerging threats in production LLM deployments [source link].
+
 
 | Feature | Action | OWASP Risk Mitigated | Rationale |
 |---------|:------:|----------------------|-----------|
-| **js-code-sandbox** | ⛔ **DISABLED** | **LLM02: Insecure Output Handling** | Prevents the model from executing JavaScript/TypeScript code via the sandbox integration, reducing risk from unsafe code paths. |
-| **Local API Server (port 1234)** | ⛔ **DISABLED** | **LLM10: Model Theft** / **LLM04: Model DoS** | Disables the local HTTP service (default port 1234) to reduce unauthorized access, model extraction via high-volume querying, and remote-triggered resource exhaustion. |
-| **rag-v1** (Docs) | ⚠️ **RESTRICTED** | **LLM06: Sensitive Info Disclosure** | Document ingestion is restricted to a dedicated encrypted workspace (`C:\LLM_GRC_Research\Vetted_Docs`) to reduce accidental inclusion of unredacted sensitive data. |
-| **Context Window** | 🔒 **CAPPED** | **LLM04: Model DoS** | Caps context to reduce resource exhaustion and instability during large-prompt workloads. |
-| **Model weights + logs** | 🔐 **ENCRYPTED (Recommended)** | **LLM10: Model Theft** | Model files (e.g., `.gguf`) and sensitive artifacts should be stored on a VeraCrypt-encrypted volume to reduce unauthorized extraction risk. |
+| **js-code-sandbox** | ⛔ **DISABLED** | **LLM05: Improper Output Handling** | Prevents unsafe code execution from model outputs |
+| **Local API Server (port 1234)** | ⛔ **DISABLED** | **LLM10: Unbounded Consumption** / **LLM03: Supply Chain** | Prevents unauthorized access and resource exhaustion attacks |
+| **rag-v1** (Docs) | ⚠️ **RESTRICTED** | **LLM02: Sensitive Information Disclosure** | Limits accidental ingestion of unredacted data |
+| **Context Window** | 🔒 **CAPPED** | **LLM10: Unbounded Consumption** | Prevents resource exhaustion during large-prompt workloads |
+| **Model weights + logs** | 🔐 **ENCRYPTED** | **LLM03: Supply Chain** | Protects against unauthorized model extraction |
 
 ### 🔍 Threat Detection & Operational Safeguards (Local)
 
 Five OWASP threats are addressed through local monitoring plus operational controls:
 
-- **LLM01: Prompt Injection**: Flag suspicious override/exfiltration phrasing; review for instruction-hijacking attempts.
-- **LLM02: Insecure Output Handling**: Treat outputs as untrusted; manually review code blocks before reuse.
-- **LLM04: Model Denial of Service**: Monitor latency/tok-sec and GPU/VRAM utilization; enforce token/context caps.
-- **LLM06: Sensitive Information Disclosure**: Pre-scan prompts for secrets/PII patterns; avoid pasting credentials; restrict RAG to sanitized docs.
-- **LLM10: Model Theft**: Keep API server disabled; use encrypted storage for models/logs (VeraCrypt recommended); lock workstation when unattended.
+- **LLM01: Prompt Injection**: Review prompts for override attempts and instruction-hijacking patterns
+- **LLM02: Sensitive Information Disclosure**: Pre-scan prompts for PII/secrets; restrict RAG to sanitized documents
+- **LLM05: Improper Output Handling**: Treat all outputs as untrusted; manually review code blocks before execution
+- **LLM10: Unbounded Consumption**: Monitor token/sec rates and VRAM usage; enforce context caps
+- **LLM03: Supply Chain**: Use encrypted storage for models/logs; verify GGUF checksums from trusted sources
 
 ---
 
 **References**:
-- [OWASP GenAI Project](https://genai.owasp.org/)
-- [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
+- [OWASP Top 10 for LLM Applications 2025 (PDF)](https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf)
+- [OWASP GenAI Security Project](https://genai.owasp.org/)
+- [OWASP LLM Top 10 Archive](https://genai.owasp.org/llm-top-10/)
+
 
 ---
 
