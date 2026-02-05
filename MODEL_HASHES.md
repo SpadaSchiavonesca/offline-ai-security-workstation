@@ -1,14 +1,13 @@
 # MODEL_HASHES.md — Model Integrity Record
 
-This repository uses a locally downloaded GGUF model file from the LM Studio Community listing on Hugging Face.  
-Recording file hashes supports reproducibility and reduces supply-chain risk by letting reviewers confirm they have the **exact same artifact**.
+This repository records SHA-256 hashes for the exact model artifact used, supporting reproducibility and basic supply-chain integrity verification.
 
 Model source (Hugging Face):
 - https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF
 
 ---
 
-## Artifact used in this repo (recorded)
+## Recorded artifact (this workstation)
 
 | Artifact filename | Quant | File size (bytes) | SHA-256 | Date recorded |
 | :--- | :--- | ---: | :--- | :---: |
@@ -18,7 +17,7 @@ Model source (Hugging Face):
 
 ## How to verify (Windows PowerShell)
 
-PowerShell command to compute the SHA-256 hash for the model file:
-
+### Option A — Use your LM Studio models folder (recommended)
 ```powershell
-Get-FileHash -Algorithm SHA256 "C:\Users\dada_\.lmstudio\models\lmstudio-community\Qwen3-14B-GGUF\Qwen3-14B-Q4_K_M.gguf"
+Get-FileHash -Algorithm SHA256 "$env:USERPROFILE\.lmstudio\models\lmstudio-community\Qwen3-14B-GGUF\Qwen3-14B-Q4_K_M.gguf"
+
