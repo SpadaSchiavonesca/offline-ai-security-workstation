@@ -46,7 +46,7 @@ I evaluated Jan and LM Studio as the two leading local LLM desktop clients. Both
 
 | Feature | Jan | LM Studio |
 |:--------|:----|:----------|
-| **License** | ✅ Open source (AGPLv3) | ❌ Proprietary |
+| **License** | ✅ Open source (Apache 2.0) [Jan repo] | ❌ Proprietary |
 | **Privacy approach** | ✅ Explicit: "zero data collection" | ✅ States nothing leaves device |
 | **Offline documentation** | ⚠️ Privacy docs focus on cloud vs local distinction | ✅ Dedicated offline operation guide |
 | **AMD GPU (Vulkan) support** | ⚠️ Supported but less documented | ✅ Well-documented, tested |
@@ -71,7 +71,7 @@ I evaluated Jan and LM Studio as the two leading local LLM desktop clients. Both
 
 **Jan's advantages:**
 - ✅ **Open source:** Full code transparency (AGPLv3 license) — important if you need to audit the client code
-- ✅ **Privacy-first design:** Explicit privacy documentation and "zero data collection" stance
+- ✅ **Privacy approach** “Zero data collection until you say so” (optional analytics) | “Nothing you enter… leaves your device” (offline mode) |
 - ✅ **Flexibility:** More control over configuration and data folder management
 - ✅ **Philosophy:** If open source is a requirement (not just nice-to-have), Jan is the clear choice
 
@@ -257,7 +257,7 @@ The following features have been disabled or hardened to reduce the attack surfa
 
 ### 🔍 Threat Detection & Operational Safeguards (Local)
 
-This workstation addresses five OWASP threats using local monitoring plus operational controls:
+Five OWASP threats are addressed through local monitoring plus operational controls:
 
 - **LLM01: Prompt Injection**: Flag suspicious override/exfiltration phrasing; review for instruction-hijacking attempts.
 - **LLM02: Insecure Output Handling**: Treat outputs as untrusted; manually review code blocks before reuse.
@@ -321,4 +321,4 @@ While this setup mitigates third-party "data-in-flight" risk, the user is respon
 
 ---
 
-**Last Updated:** February 4, 2026
+**Last Updated:** February 5, 2026
