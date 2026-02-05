@@ -239,6 +239,38 @@ I have compiled a library of high-fidelity prompts that demonstrate how to use t
 
 ---
 
+## 🛡️ OWASP Hardening & Configuration
+
+To mitigate risks identified in the **OWASP Top 10 for LLM Applications (2025)**, this workstation employs a "defense-in-depth" configuration. While local deployment eliminates many network-based threats, specific local controls are required to prevent data leakage and insecure code execution.
+
+### 🔒 Configuration Controls (LM Studio)
+
+The following default features have been disabled or restricted to reduce the attack surface:
+
+| Feature | Action | OWASP Risk Mitigated | Rationale |
+|---------|:------:|----------------------|-----------|
+| **js-code-sandbox** | ⛔ **DISABLED** | **LLM02: Insecure Output Handling** | Prevents the model from autonomously executing JavaScript or TypeScript code on the host machine. Mitigates risk of malicious code generation or accidental system modification. |
+| **Local API Server** | ⛔ **DISABLED** | **LLM04: Denial of Service** | Disables the HTTP server (port 1234) to prevent unauthorized local or network access to the model interface. Ensures strictly single-user, desktop-only interaction. |
+| **rag-v1** (Docs) | ⚠️ **RESTRICTED** | **LLM06: Sensitive Info Disclosure** | Document ingestion is restricted to a dedicated, encrypted directory (`C:\LLM_GRC_Research\Vetted_Docs`). Prevents accidental ingestion of unredacted PII/PHI from general user folders. |
+| **Context Window** | 🔒 **CAPPED** | **LLM04: Denial of Service** | Context window capped at **32,768 tokens** to prevent resource exhaustion crashes (OOM) on the host GPU during heavy analysis tasks. |
+
+### 🔍 Threat Detection (Local Monitoring)
+
+Five specific OWASP threats are monitored directly through local prompt and response analysis:
+
+- **LLM01: Prompt Injection**: Monitored via regex patterns for instructions attempting to override system prompts (e.g., *"Ignore previous instructions"*).
+- **LLM02: Insecure Output Handling**: All model outputs are treated as untrusted; code blocks are reviewed manually before use.
+- **LLM06: Sensitive Information Disclosure**: Inputs are pre-scanned for PII (SSN, API keys) to prevent data from entering the chat history.
+- **LLM10: Model Theft**: Physical access controls (VeraCrypt, Lock Screen) prevent unauthorized extraction of the model or chat logs.
+
+---
+
+**References**:
+- [OWASP Top 10 for LLM Applications (2025)](https://genai.owasp.org/)
+- [OWASP AI Security Center of Excellence Guide](https://genai.owasp.org/)
+
+---
+
 ## 📊 Job Relevance (Security Analyst / GRC)
 
 This project demonstrates the following professional competencies:
