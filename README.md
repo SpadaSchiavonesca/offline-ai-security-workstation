@@ -160,110 +160,82 @@ I used the **LM Studio Community** listing for Qwen3 14B because the model detai
 
 ## 🚀 Setup Guide (Step-by-Step)
 
+## 🛠️ Setup Guide (Step-by-Step)
+
 ### Prerequisites
-- Windows 10/11 (or Linux)
-- AMD GPU with 8GB+ VRAM (or NVIDIA with CUDA support)
-- 20GB free disk space
+* **OS:** Windows 10/11 (or Linux)
+* **Hardware:** AMD GPU with 8GB+ VRAM (via Vulkan) or NVIDIA (via CUDA)
+* **Storage:** 20GB free disk space
 
-### 1. Install LM Studio
-* Download from: [lmstudio.ai](https://lmstudio.ai)
-* *Note: For AMD cards, the standard version uses Vulkan automatically.*
+### 1. Install & Configure LM Studio
+1. **Install:** Download from [lmstudio.ai](https://lmstudio.ai).
+2. **GPU Setup:** Go to **Settings (⚙️) → Hardware**. Toggle **GPU ON** and verify detection via **Vulkan**.
+3. **Model Download:** Search for `Qwen3 14B` and select `lmstudio-community/Qwen3-14B-GGUF`. Download the `Q4_K_M` version.
+4. **Load Model:** Click the **Chat icon (💬)**, select the model at the top, and wait for the "Active" status.
 
-### 2. Enable GPU Acceleration
-1.  Open LM Studio.
-2.  Click **Settings** (⚙️ icon, bottom-left).
-3.  Go to the **Hardware** tab.
-4.  Verify your GPU is detected via **Vulkan**.
-5.  Toggle **GPU** to **ON**.
-
-### 3. Download Qwen3 14B
-1.  Click the **Search icon** (🔍).
-2.  Search for: `Qwen3 14B`.
-3.  Select: `lmstudio-community/Qwen3-14B-GGUF`.
-4.  Download: `Qwen3-14B-Q4_K_M.gguf` (~9GB file).
-
-### 4. Load and Configure
-1.  Click the **Chat icon** (💬) on the left sidebar.
-2.  Select **"Select a model to load"** at the top.
-3.  Choose `Qwen3-14B-Q4_K_M`.
-
-### 5. Maximize GPU Performance
-In the **Model Settings** panel (right side):
-* **GPU Offload:** Drag all the way to the **MAX** (40/40).
+### 2. Maximize Performance
+In the **Model Settings** panel:
+* **GPU Offload:** Set to **MAX** (40/40 for Qwen3 14B).
 * **Context Length:** Set to `32768`.
-* **Keep KV Cache in GPU:** ON.
-* Click **"Reload to apply changes"**.
-
-### 6. Verify & Test
-* **Resource Monitor:** Check `Settings → Hardware`. VRAM usage should be **9-10 GB**.
-* **Speed Test:** Run the prompt `Count from 1 to 10`. Numbers should appear in 1-2 seconds.
-* **Offline Check:** Disconnect WiFi and run a prompt to verify 100% local operation.
-
----
-
-## 💼 GRC & Security Use Cases
-
-### 1️⃣ Threat Modeling
-**Prompt:** *"Write a comprehensive threat model for a web API that handles user authentication. Include STRIDE analysis and mitigation strategies."*
-* **Value:** Generates attack vectors and mappings without sending architecture details to the cloud.
-
-### 2️⃣ Compliance Control Mapping
-**Prompt:** *"Map NIST 800-53 AC-2 (Account Management) to equivalent ISO 27001:2022 controls. Provide a markdown table. /no_think"*
-* **Result:** Instant, accurate cross-framework mapping.
-
-### 3️⃣ Security Policy Generation
-**Prompt:** *"Generate an access control policy section for MFA and privileged access that aligns with SOC 2 Type II requirements."*
-* **Value:** Creates high-quality first drafts for internal policies.
+* **Hardware Check:** Verify VRAM usage is ~9-10GB in the resource monitor (not system RAM).
 
 ---
 
 ## 🔐 Privacy & Compliance Advantages
 
-| Framework | Benefit |
-| :--- | :--- |
-| **HIPAA** | No PHI/PII sent to third-party AI services. |
-| **PCI-DSS** | Cardholder data analysis stays on-premises. |
-| **SOC 2** | Eliminates the need for new vendor AI security reviews. |
-| **GDPR** | Personal data never leaves local infrastructure. |
+Using a local LLM shifts the security model from **Third-Party Risk Management** to **Internal Endpoint Control**.
+
+| Framework | Primary Benefit | The Analyst's View (Implementation) |
+| :--- | :--- | :--- |
+| **HIPAA** | No PHI/PII sent to third parties; No BAA required. | Requires local Full Disk Encryption (FDE) and strict local access controls. |
+| **PCI-DSS** | Scope Reduction; keeps CHD analysis out of the cloud. | Workstation enters the CDE; must follow hardening and logging standards. |
+| **SOC 2** | Simplifies Vendor Management; no AI-vendor audit required. | The LLM becomes a managed internal asset within your SOC 2 boundary. |
+| **GDPR** | Zero Cross-Border Transfer; absolute data residency. | Simplifies "Right to Erasure" (RTBF) as logs are stored on-premises. |
+
+> [!IMPORTANT]
+> **🔒 Security Note on Local Deployment:**
+> While local LLMs mitigate third-party exposure, the "Security **OF** the AI" becomes the responsibility of the host. In this project, I treat the workstation as a **High-Trust Asset**, assuming Full Disk Encryption (AES-256) is active and network isolation is used for sensitive sessions.
 
 ---
 
-## 📊 Job Relevance (Security Analyst/GRC)
+## 💼 GRC & Security Use Cases
 
-This project showcases several core competencies:
-* **Technical Competence:** GPU acceleration (Vulkan), VRAM optimization, and quantization tradeoffs.
-* **Security Judgment:** Choosing tools that support air-gapped workflows for sensitive data.
-* **Practical Outputs:** Delivering STRIDE models, NIST/ISO mappings, and risk statements.
+### 1️⃣ Threat Modeling (STRIDE)
+**Prompt:** *"Write a comprehensive threat model for a web API that handles user authentication. Include STRIDE analysis and mitigation strategies."*
+* **Value:** Rapidly identifies attack vectors without exposing proprietary architecture to public AI models.
 
----
+### 2️⃣ Compliance Control Mapping
+**Prompt:** *"Map NIST 800-53 AC-2 (Account Management) to equivalent ISO 27001:2022 controls. Provide a markdown table. /no_think"*
+* **Value:** Instant cross-framework crosswalking for audit readiness.
 
-## 🎓 Why?
-* **The "Why":** Built to demonstrate data-handling awareness for sensitive security content.
-* **Performance:** Achieved **24-26 tok/sec** on local hardware using Vulkan.
-* **Application:** Used for drafting control narratives, risk registers, and incident response checklists.
-
----
-
-## 🛠️ Troubleshooting
-* **GPU Not Detected:** Update AMD Adrenalin drivers; restart LM Studio.
-* **Slow Performance:** Ensure the **GPU Offload** slider is at Max (40/40).
-* **Out of Memory:** Reduce Context Length to `16384` or use a smaller quantization (Q3_K_M).
+### 3️⃣ Risk Assessment & Policy
+**Prompt:** *"Create a risk statement, likelihood/impact rating, and three mitigations for 'No MFA on VPN access'."*
+* **Value:** Standardizes risk register entries with professional, neutral language.
 
 ---
 
-## 📬 About Me
-**[Your Name]**
-* **Role:** GRC & Security Analyst Professional
-* **Skills:** Risk Assessment, NIST, ISO 27001, SOC 2, Threat Modeling.
-* **Location:** Chicago, IL (Remote)
-* **Connect:** [LinkedIn](Your-Link-Here)
+## 📊 Job Relevance (Security Analyst / GRC)
+
+This project demonstrates the following professional competencies:
+* **Technical Architecture:** Configuring Vulkan/GPU acceleration and optimizing VRAM for local inference.
+* **Risk-Based Decision Making:** Choosing offline LLMs to support data privacy for sensitive IR and policy work.
+* **Security Documentation:** Creating reproducible, well-documented technical workflows.
+* **Tool Proficiency:** Mastery of local AI tooling (LM Studio) and modern reasoning models (Qwen3).
 
 ---
+
+## 🎓 Why
+* **The "Why":** "I built this to solve the 'AI Privacy Paradox'—leveraging the productivity of LLMs for GRC tasks without the risk of data leakage to third-party providers."
+* **The Metrics:** "Optimized for 24-26 tokens/sec on AMD hardware using Vulkan, ensuring zero-latency offline operation."
+* **The Strategy:** "By using local RAG (Retrieval-Augmented Generation), I can analyze internal policies against frameworks like NIST or SOC 2 without the data ever leaving the encrypted local environment."
+
+---
+
 
 ## ⚖️ License & Disclaimer
 * **License:** MIT
 * **Model:** Qwen3 (Apache 2.0)
-* **Disclaimer:** AI-generated content must be reviewed by a human professional. This tool assists but does not replace expert judgment.
+* **Disclaimer:** AI-generated security content must be reviewed by qualified professionals. This tool assists human decision-making but does not replace expert judgment.
 
 ---
 *Last Updated: February 4, 2026*
