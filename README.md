@@ -50,7 +50,7 @@
 ### Software stack (this build)
 - **Client:** LM Studio 0.4.1
 - **Backend:** Vulkan
-- **Model (GGUF):** `lmstudio-community/Qwen3-14B-GGUF` [Source: HF listing]
+- **Model (GGUF):** `lmstudio-community/Qwen3-14B-GGUF`[^hf-qwen3]
 - **Quantization used (this workstation):** `Q4_K_M`
   - **File:** `Qwen3-14B-Q4_K_M.gguf`
   - **File size:** 9,001,753,376 bytes
@@ -60,11 +60,11 @@
 
 ## ✅ Offline assurance
 
-LM Studio states: **“Nothing you enter into LM Studio when chatting with LLMs leaves your device.”** [Source: LM Studio Offline Operation docs] [page:4]
+LM Studio states: **“Nothing you enter into LM Studio when chatting with LLMs leaves your device.”**[^lmstudio-offline]
 
-The same documentation states LM Studio can operate entirely offline once model files are downloaded and clarifies which features do/don’t require connectivity. [page:4]
+The same documentation states LM Studio can operate entirely offline once model files are downloaded and clarifies which features do/don’t require connectivity.[^lmstudio-offline]
 
-### Offline behavior checklist (per vendor docs) [page:4]
+### Offline behavior checklist (per vendor docs)
 
 **Operations that do NOT require connectivity (after you have a model file):**
 - Using downloaded LLMs
@@ -79,23 +79,23 @@ The same documentation states LM Studio can operate entirely offline once model 
 - Checking for app updates
 
 > [!NOTE]
-> If you drag-and-drop documents for RAG, LM Studio states the documents stay on your machine and processing is done locally. [page:4]
+> If you drag-and-drop documents for RAG, LM Studio states the documents stay on your machine and processing is done locally.[^lmstudio-offline]
 
 ---
 
 ## 🧾 Model provenance (supply chain)
 
 This build uses the **LM Studio Community** Hugging Face listing:  
-[https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF](https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF) [web:45]
+[https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF](https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF)[^hf-qwen3]
 
 The listing states:  
 - **Model creator:** Qwen  
 - **Original model:** `Qwen3-14B`  
-- **GGUF quantization:** provided by **`bartowski`** based on `llama.cpp` release **b5200** [web:45]
+- **GGUF quantization:** provided by **`bartowski`** based on `llama.cpp` release **b5200**[^hf-qwen3]
 
 The listing also states it supports:
-- **YaRN long context** up to 131,072 tokens (default 32k) [web:45]
-- **`/no_think`** to disable reasoning by adding it to the end of the prompt [web:45]
+- **YaRN long context** up to 131,072 tokens (default 32k)[^hf-qwen3]
+- **`/no_think`** to disable reasoning by adding it to the end of the prompt[^hf-qwen3]
 
 > [!IMPORTANT]
 > For supply-chain hygiene, record model hashes and keep them in-repo for reviewers.
@@ -137,14 +137,14 @@ All evidence images are stored in `screenshots/` (lowercase).
 4. Set **GPU offload** as high as stable for your VRAM
 
 ### 2) Download the model
-1. Open **Discover** (internet required for search/download) [page:4]
+1. Open **Discover** (internet required for search/download)[^lmstudio-offline]
 2. Search: `Qwen3 14B`
 3. Select the Hugging Face source: `lmstudio-community/Qwen3-14B-GGUF`
 4. Download the `Q4_K_M` GGUF file (`Qwen3-14B-Q4_K_M.gguf`)
 
 ### 3) Run offline
 1. After download, disconnect from the internet
-2. Start a new chat and confirm generation works offline [page:4]
+2. Start a new chat and confirm generation works offline[^lmstudio-offline]
 3. Optional: enforce OS firewall rules to block LM Studio from any outbound traffic during sensitive sessions
 
 ---
@@ -152,7 +152,7 @@ All evidence images are stored in `screenshots/` (lowercase).
 ## 🛡️ Security hardening (OWASP LLM Top 10 2025)
 
 Mapped to the **OWASP Top 10 for LLM Applications 2025** (official PDF):  
-[https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf](https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf) [page:1]
+[https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf](https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf)[^owasp-llm10-2025]
 
 ### Configuration controls (client + OS)
 
@@ -200,9 +200,9 @@ Mapped to the **OWASP Top 10 for LLM Applications 2025** (official PDF):
 ## ⚖️ License & professional disclaimer
 
 - **Documentation license:** MIT (see [LICENSE](LICENSE))
-- **Model listing used:** [https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF](https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF) [web:45]
-- **LM Studio offline docs:** [https://lmstudio.ai/docs/app/offline](https://lmstudio.ai/docs/app/offline) [page:4]
-- **OWASP LLM Top 10 (2025 PDF):** [https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf](https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf) [page:1]
+- **Model listing used:** [https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF](https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF)[^hf-qwen3]
+- **LM Studio offline docs:** [https://lmstudio.ai/docs/app/offline](https://lmstudio.ai/docs/app/offline)[^lmstudio-offline]
+- **OWASP LLM Top 10 (2025 PDF):** [https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf](https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf)[^owasp-llm10-2025]
 
 > [!CAUTION]
 > **No legal or regulatory advice:** This repository is for demonstration and productivity purposes. All outputs must be reviewed by qualified professionals.
@@ -223,3 +223,9 @@ Mapped to the **OWASP Top 10 for LLM Applications 2025** (official PDF):
 **Version:** 2.0
 
 *Built with LM Studio 0.4.1 | Model: lmstudio-community/Qwen3-14B-GGUF (Q4_K_M) | Offline-first GRC workstation*
+
+---
+
+[^lmstudio-offline]: LM Studio — Offline Operation docs: https://lmstudio.ai/docs/app/offline
+[^hf-qwen3]: Hugging Face — lmstudio-community/Qwen3-14B-GGUF: https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF
+[^owasp-llm10-2025]: OWASP — Top 10 for LLM Applications (2025 PDF): https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf
