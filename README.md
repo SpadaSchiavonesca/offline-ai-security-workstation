@@ -71,7 +71,7 @@ I evaluated Jan and LM Studio as the two leading local LLM desktop clients. Both
 
 **Jan's advantages:**
 - ✅ **Open source:** Full code transparency (AGPLv3 license) — important if you need to audit the client code
-- ✅ **Privacy approach** “Zero data collection until you say so” (optional analytics) | “Nothing you enter… leaves your device” (offline mode) |
+- ✅ **Privacy-first design:** Explicit privacy documentation and "zero data collection" stance
 - ✅ **Flexibility:** More control over configuration and data folder management
 - ✅ **Philosophy:** If open source is a requirement (not just nice-to-have), Jan is the clear choice
 
