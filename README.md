@@ -1,8 +1,8 @@
 # 🔒 Offline AI Security Workstation (Local LLM for GRC/Security)
 
-[![LM Studio](https://img.shields.io/badge/LM%20Studio-0.4.1-blue)](https://lmstudio.ai/docs/app/offline)
-[![Model](https://img.shields.io/badge/Model-Qwen3--14B-green)](https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF)
-[![Backend](https://img.shields.io/badge/Backend-Vulkan-red)](https://www.vulkan.org/)
+[![LM Studio](https://img.shields.io/badge/LM%20Studio-0.4.1-blue?logo=lmstudio)](https://lmstudio.ai)
+[![Model](https://img.shields.io/badge/Model-Qwen3--14B-green?logo=huggingface)](https://huggingface.co/Qwen/Qwen3-14B)
+[![Backend](https://img.shields.io/badge/Backend-Vulkan-red?logo=vulkan)](https://www.vulkan.org/)
 
 > **Offline-first local LLM setup for GRC and Security Analyst work** (threat modeling, compliance documentation, policy drafting, and IR planning) designed to reduce third‑party data exposure.
 
