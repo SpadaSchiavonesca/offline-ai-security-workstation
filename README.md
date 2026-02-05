@@ -198,7 +198,7 @@ Using a local LLM shifts the security model from **Third-Party Risk Management**
 
 ## 💼 GRC & Security Use Cases
 
-This workstation allows for "GRC Analyst" level workflows without data leakage. Below are validated use cases with actual output examples.
+This workstation allows for "Senior Analyst" level workflows without data leakage. Below are validated use cases with actual output examples.
 
 ### 📚 Expert Prompt Library
 I have compiled a library of high-fidelity prompts that demonstrate how to use this workstation for complex GRC tasks.
@@ -206,14 +206,14 @@ I have compiled a library of high-fidelity prompts that demonstrate how to use t
 
 ---
 
-### 1️⃣ Threat Modeling (STRIDE)
+### 1️⃣ SOC 2 Technical Exception Analysis
 **Prompt:**
-> "Write a comprehensive threat model for a web API that handles user authentication. Include STRIDE analysis and mitigation strategies."
+> "Act as a Senior GRC Analyst. I am reviewing a vendor's SOC 2 Type II report. The auditor noted an exception: 'For 3 out of 25 samples, the vendor could not provide evidence of timely access revocation...'"
 
-**Value:** Rapidly identifies attack vectors without exposing proprietary architecture to public AI models.
+**Value:** Translates "Auditor-speak" into concrete risk assessments and mapped Trust Services Criteria (TSC).
 
-![STRIDE Threat Model Output](screenshots/stride-threat-model.png)
-*Figure 1: Local Qwen3 14B model generating a structured STRIDE analysis.*
+![SOC 2 Analysis Output](screenshots/soc2-analysis.png)
+*Figure 1: Local Qwen3 14B model identifying TSC gaps and compensating controls.*
 
 ---
 
