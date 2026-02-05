@@ -181,7 +181,6 @@ https://owasp.org/www-project-top-10-for-large-language-model-applications/asset
 ## 📄 Related files
 
 - **[PROMPT_LIBRARY.md](PROMPT_LIBRARY.md)** — Curated GRC prompt set
-- **[SETUP_TROUBLESHOOTING.md](SETUP_TROUBLESHOOTING.md)** — AMD/Vulkan troubleshooting
 - **[screenshots/](screenshots/)** — Evidence screenshots
 - **[LICENSE](LICENSE)** — MIT license for this documentation
 
