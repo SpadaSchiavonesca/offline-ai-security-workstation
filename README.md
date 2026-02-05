@@ -56,7 +56,7 @@ I evaluated Jan and LM Studio as the two leading local LLM desktop clients. Both
 
 **Sources:**
 - Jan Privacy Approach: https://www.jan.ai/docs/desktop/privacy
-- Jan GitHub (AGPLv3): https://github.com/janhq/jan
+- Jan GitHub (Apache 2.0): [https://github.com/janhq/jan](https://github.com/janhq/jan)
 - LM Studio Offline Docs: https://lmstudio.ai/docs/app/offline
 
 #### Why I chose LM Studio for this project
@@ -70,7 +70,7 @@ I evaluated Jan and LM Studio as the two leading local LLM desktop clients. Both
 #### Why you might prefer Jan instead
 
 **Jan's advantages:**
-- ✅ **Open source:** Full code transparency (AGPLv3 license) — important if you need to audit the client code
+- ✅ **Open source:** Full code transparency (Apache 2.0 license) — important if you need to audit the client code
 - ✅ **Privacy-first design:** Explicit privacy documentation and "zero data collection" stance
 - ✅ **Flexibility:** More control over configuration and data folder management
 - ✅ **Philosophy:** If open source is a requirement (not just nice-to-have), Jan is the clear choice
@@ -173,7 +173,7 @@ I used the **LM Studio Community** listing for Qwen3 14B because the model detai
 
 ### 2. Maximize Performance
 In the **Model Settings** panel:
-* **GPU Offload:** Set to **MAX** (40/40 for Qwen3 14B).
+* **GPU Offload:** Set to **MAX** (offload all available layers to GPU for this model).
 * **Context Length:** Set to `32768`.
 * **Hardware Check:** Verify VRAM usage is ~9-10GB in the resource monitor (not system RAM).
 
@@ -253,7 +253,7 @@ The following features have been disabled or hardened to reduce the attack surfa
 | **Local API Server (port 1234)** | ⛔ **DISABLED** | **LLM10: Model Theft** / **LLM04: Model DoS** | Disables the local HTTP service (default port 1234) to reduce unauthorized access, model extraction via high-volume querying, and remote-triggered resource exhaustion. |
 | **rag-v1** (Docs) | ⚠️ **RESTRICTED** | **LLM06: Sensitive Info Disclosure** | Document ingestion is restricted to a dedicated encrypted workspace (`C:\LLM_GRC_Research\Vetted_Docs`) to reduce accidental inclusion of unredacted sensitive data. |
 | **Context Window** | 🔒 **CAPPED** | **LLM04: Model DoS** | Caps context to reduce resource exhaustion and instability during large-prompt workloads. |
-| **Model weights + logs** | 🔐 **ENCRYPTED** | **LLM10: Model Theft** | Model files (e.g., `.gguf`) and sensitive artifacts are stored on a VeraCrypt-encrypted volume to reduce unauthorized extraction risk. |
+| **Model weights + logs** | 🔐 **ENCRYPTED (Recommended)** | **LLM10: Model Theft** | Model files (e.g., `.gguf`) and sensitive artifacts should be stored on a VeraCrypt-encrypted volume to reduce unauthorized extraction risk. |
 
 ### 🔍 Threat Detection & Operational Safeguards (Local)
 
@@ -263,7 +263,7 @@ Five OWASP threats are addressed through local monitoring plus operational contr
 - **LLM02: Insecure Output Handling**: Treat outputs as untrusted; manually review code blocks before reuse.
 - **LLM04: Model Denial of Service**: Monitor latency/tok-sec and GPU/VRAM utilization; enforce token/context caps.
 - **LLM06: Sensitive Information Disclosure**: Pre-scan prompts for secrets/PII patterns; avoid pasting credentials; restrict RAG to sanitized docs.
-- **LLM10: Model Theft**: Keep API server disabled; encrypt model storage; lock workstation when unattended.
+- **LLM10: Model Theft**: Keep API server disabled; use encrypted storage for models/logs (VeraCrypt recommended); lock workstation when unattended.
 
 ---
 
