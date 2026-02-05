@@ -198,42 +198,80 @@ Using a local LLM shifts the security model from **Third-Party Risk Management**
 
 ## 💼 GRC & Security Use Cases
 
+This workstation allows for "GRC Analyst" level workflows without data leakage. Below are validated use cases with actual output examples.
+
+### 📚 Expert Prompt Library
+I have compiled a library of high-fidelity prompts that demonstrate how to use this workstation for complex GRC tasks.
+👉 **[View the GRC Prompt Library (PROMPT_LIBRARY.md)](PROMPT_LIBRARY.md)**
+
+---
+
 ### 1️⃣ Threat Modeling (STRIDE)
-**Prompt:** *"Write a comprehensive threat model for a web API that handles user authentication. Include STRIDE analysis and mitigation strategies."*
-* **Value:** Rapidly identifies attack vectors without exposing proprietary architecture to public AI models.
+**Prompt:**
+> "Write a comprehensive threat model for a web API that handles user authentication. Include STRIDE analysis and mitigation strategies."
 
-### 2️⃣ Compliance Control Mapping
-**Prompt:** *"Map NIST 800-53 AC-2 (Account Management) to equivalent ISO 27001:2022 controls. Provide a markdown table. /no_think"*
-* **Value:** Instant cross-framework crosswalking for audit readiness.
+**Value:** Rapidly identifies attack vectors without exposing proprietary architecture to public AI models.
 
-### 3️⃣ Risk Assessment & Policy
-**Prompt:** *"Create a risk statement, likelihood/impact rating, and three mitigations for 'No MFA on VPN access'."*
-* **Value:** Standardizes risk register entries with professional, neutral language.
+![STRIDE Threat Model Output](screenshots/stride-threat-model.png)
+*Figure 1: Local Qwen3 14B model generating a structured STRIDE analysis.*
+
+---
+
+### 2️⃣ Technical Compliance Audit (NIST 800-53)
+**Prompt:**
+> "Context: I am auditing our cloud environment against NIST 800-53 AC-3. Analyze this S3 Bucket Policy..."
+
+**Value:** Instantly detects "Least Privilege" violations in raw JSON/config files and generates remediation code.
+
+![NIST Gap Analysis Output](screenshots/gap-analysis.png)
+*Figure 2: AI identifying a public S3 bucket and writing the fix (JSON).*
+
+---
+
+### 3️⃣ Quantitative Risk Assessment
+**Prompt:**
+> "Generate a formal Risk Statement for the following finding: 'Our legacy Cisco VPN used by the dev team does not support MFA...'"
+
+**Value:** Standardizes risk register entries with professional, neutral language and calculated likelihood/impact ratings.
+
+![Risk Statement Output](screenshots/risk-statement.png)
+*Figure 3: Structured risk entry ready for GRC platforms (ServiceNow/Archer).*
 
 ---
 
 ## 📊 Job Relevance (Security Analyst / GRC)
 
 This project demonstrates the following professional competencies:
-* **Technical Architecture:** Configuring Vulkan/GPU acceleration and optimizing VRAM for local inference.
-* **Risk-Based Decision Making:** Choosing offline LLMs to support data privacy for sensitive IR and policy work.
-* **Security Documentation:** Creating reproducible, well-documented technical workflows.
-* **Tool Proficiency:** Mastery of local AI tooling (LM Studio) and modern reasoning models (Qwen3).
+
+| Competency | Evidence in Project |
+|---|---|
+| **Technical Architecture** | Configured Vulkan/GPU acceleration and optimized VRAM for 24+ tok/sec local inference. |
+| **Risk-Based Decision Making** | Selected offline LLMs to mitigate third-party data leakage risks for sensitive IR and policy work. |
+| **Security Documentation** | Created reproducible, well-documented technical workflows and prompt libraries. |
+| **Tool Proficiency** | demonstrated mastery of local AI tooling (LM Studio) and modern reasoning models (Qwen3). |
 
 ---
 
-## 🎓 Why
-* **The "Why":** "I built this to solve the 'AI Privacy Paradox'—leveraging the productivity of LLMs for GRC tasks without the risk of data leakage to third-party providers."
-* **The Metrics:** "Optimized for 24-26 tokens/sec on AMD hardware using Vulkan, ensuring zero-latency offline operation."
-* **The Strategy:** "By using local RAG (Retrieval-Augmented Generation), I can analyze internal policies against frameworks like NIST or SOC 2 without the data ever leaving the encrypted local environment."
+## 🎓 Why This Matters
+
+**The "Why":**  
+> "I built this to solve the 'AI Privacy Paradox'—leveraging the productivity of LLMs for GRC tasks without the risk of data leakage to third-party providers."
+
+**The Metrics:**  
+> "Optimized for **24–26 tokens/sec** on AMD hardware using Vulkan, ensuring zero-latency offline operation."
+
+**The Strategy:**  
+> "By using local RAG (Retrieval-Augmented Generation), I can analyze internal policies against frameworks like NIST or SOC 2 without the data ever leaving the encrypted local environment."
 
 ---
-
 
 ## ⚖️ License & Disclaimer
-* **License:** MIT
-* **Model:** Qwen3 (Apache 2.0)
-* **Disclaimer:** AI-generated security content must be reviewed by qualified professionals. This tool assists human decision-making but does not replace expert judgment.
+
+**License:** MIT  
+**Model:** Qwen3 (Apache 2.0)
+
+**Disclaimer:** AI-generated security content must be reviewed by qualified professionals. This tool assists human decision-making but does not replace expert judgment.
 
 ---
-*Last Updated: February 4, 2026*
+
+**Last Updated:** February 4, 2026
