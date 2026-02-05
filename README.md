@@ -31,7 +31,7 @@
 - **Platform:** LM Studio 0.4.1
 - **Backend:** Vulkan (AMD-optimized)
 - **Model:** Qwen3 14B Instruct (Q4_K_M quantization)
-- **Context Window:** 32,768 tokens (expandable to 131k with YaRN)
+- **Context Window:** 32,768 tokens (expandable to 131k with YaRN—optimized at 32k for 12GB VRAM stability)
 - **Performance:** 24-26 tokens/second (GPU-accelerated)
 
 ---
@@ -84,7 +84,7 @@ I evaluated Jan and LM Studio as the two leading local LLM desktop clients. Both
 
 I used the **LM Studio Community** listing for Qwen3 14B because the model details clearly identify:
 - Original model (Qwen3-14B by Qwen team)
-- GGUF conversion/quantization provenance (bartowski)
+- - GGUF conversion/quantization **Provenance** (bartowski)
 - Runtime compatibility (llama.cpp release)
 
 **Rationale:** For portfolio work, provenance matters. Traceable origin supports reproducibility for reviewers who want to replicate the setup.
@@ -248,7 +248,7 @@ This project demonstrates the following professional competencies:
 | **Technical Architecture** | Configured Vulkan/GPU acceleration and optimized VRAM for 24+ tok/sec local inference. |
 | **Risk-Based Decision Making** | Selected offline LLMs to mitigate third-party data leakage risks for sensitive IR and policy work. |
 | **Security Documentation** | Created reproducible, well-documented technical workflows and prompt libraries. |
-| **Tool Proficiency** | demonstrated mastery of local AI tooling (LM Studio) and modern reasoning models (Qwen3). |
+| **Tool Proficiency** | Demonstrated mastery of local AI tooling (LM Studio) and modern reasoning models (Qwen3). |
 
 ---
 
