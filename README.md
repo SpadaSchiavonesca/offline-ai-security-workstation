@@ -158,17 +158,17 @@ Mapped to the **OWASP Top 10 for LLM Applications 2025** (official PDF):
 
 | Control area | Action (offline workstation) | OWASP risk mapped | Rationale |
 | :--- | :--- | :--- | :--- |
-| Prompt hygiene | Never paste secrets/PII; use redaction templates | **LLM02:2025 Sensitive Information Disclosure** | Prevents accidental disclosure into prompts and logs. |
 | Untrusted content handling | Treat vendor docs/tickets as untrusted input | **LLM01:2025 Prompt Injection** | Reduces injection success and instruction hijacking. |
-| System prompt protection | Keep system prompts free of secrets; don’t log/echo system prompts; disable any “show prompt/debug prompt” features | **LLM07:2025 System Prompt Leakage** | Prevents leakage of guardrails/instructions that can expose sensitive info or weaken defenses. |
-| Disable unnecessary “agent/tool” features | Turn off tool connectors/integrations you do not need | **LLM06:2025 Excessive Agency** | Prevents the model from gaining external action capability. |
-| Avoid executing model output | Don’t run generated scripts without review/testing | **LLM05:2025 Improper Output Handling** | Model output is untrusted input to your systems. |
+| Sensitive data handling | Never paste secrets/PII; use redaction templates; encrypt local data/logs (BitLocker/VeraCrypt) | **LLM02:2025 Sensitive Information Disclosure** | Reduces chance of sensitive data exposure via prompts, outputs, or local storage. |
 | Provenance verification | Prefer reputable sources; record hashes | **LLM03:2025 Supply Chain** | Reduces risk of tampered weights or repackaged artifacts. |
-| Resource caps | Keep context within stable limits for your GPU | **LLM10:2025 Unbounded Consumption** | Limits resource exhaustion and instability. |
 | RAG ingestion (if used) | Only ingest vetted documents in a controlled folder | **LLM04:2025 Data and Model Poisoning** | Limits poisoning/backdoors via untrusted or manipulated source content. |
+| Avoid executing model output | Don’t run generated scripts without review/testing | **LLM05:2025 Improper Output Handling** | Model output is untrusted input to your systems. |
+| Disable unnecessary “agent/tool” features | Turn off tool connectors/integrations you do not need | **LLM06:2025 Excessive Agency** | Prevents the model from gaining external action capability. |
+| System prompt protection | Keep system prompts free of secrets; don’t log/echo system prompts; disable any “show prompt/debug prompt” features | **LLM07:2025 System Prompt Leakage** | Prevents leakage of guardrails/instructions that can expose sensitive info or weaken defenses. |
 | Vector store security (if using embeddings/RAG) | Apply access controls + dataset/namespace separation; use metadata filters/allowlists; monitor for retrieval anomalies | **LLM08:2025 Vector and Embedding Weaknesses** | Reduces embedding/vector-store abuse that can cause unauthorized retrieval, leakage, or manipulated context. |
 | Human validation | Verify compliance claims with primary sources | **LLM09:2025 Misinformation** | Prevents hallucinated citations/control references from entering deliverables. |
-| Data-at-rest protection | Enable disk encryption (BitLocker/VeraCrypt) for model + logs | **LLM02:2025 Sensitive Information Disclosure** | Offline reduces data-in-transit risk, but local storage remains a target. |
+| Resource caps | Keep context within stable limits for your GPU | **LLM10:2025 Unbounded Consumption** | Limits resource exhaustion and instability. |
+
 
 ### Operational safeguards (human controls)
 - **HITL always:** Treat the LLM as a drafting assistant; you remain accountable for final compliance interpretations.
