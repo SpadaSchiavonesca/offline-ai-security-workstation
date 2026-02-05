@@ -241,33 +241,35 @@ I have compiled a library of high-fidelity prompts that demonstrate how to use t
 
 ## 🛡️ OWASP Hardening & Configuration
 
-To mitigate risks identified in the **OWASP Top 10 for LLM Applications (2025)**, this workstation employs a "defense-in-depth" configuration. While local deployment eliminates many network-based threats, specific local controls are required to prevent data leakage and insecure code execution.
+To mitigate risks identified in the **OWASP Top 10 for LLM Applications (2025)**, this workstation employs a defense-in-depth configuration. Local deployment **reduces** many network-based threats, but local controls are still required to prevent data leakage and unsafe execution paths.
 
-### 🔒 Configuration Controls (LM Studio)
+### 🔒 Configuration Controls (LM Studio & OS)
 
-The following default features have been disabled or restricted to reduce the attack surface:
+The following features have been disabled or hardened to reduce the attack surface:
 
 | Feature | Action | OWASP Risk Mitigated | Rationale |
 |---------|:------:|----------------------|-----------|
-| **js-code-sandbox** | ⛔ **DISABLED** | **LLM02: Insecure Output Handling** | Prevents the model from autonomously executing JavaScript or TypeScript code on the host machine. Mitigates risk of malicious code generation or accidental system modification. |
-| **Local API Server** | ⛔ **DISABLED** | **LLM04: Denial of Service** | Disables the HTTP server (port 1234) to prevent unauthorized local or network access to the model interface. Ensures strictly single-user, desktop-only interaction. |
-| **rag-v1** (Docs) | ⚠️ **RESTRICTED** | **LLM06: Sensitive Info Disclosure** | Document ingestion is restricted to a dedicated, encrypted directory (`C:\LLM_GRC_Research\Vetted_Docs`). Prevents accidental ingestion of unredacted PII/PHI from general user folders. |
-| **Context Window** | 🔒 **CAPPED** | **LLM04: Denial of Service** | Context window capped at **32,768 tokens** to prevent resource exhaustion crashes (OOM) on the host GPU during heavy analysis tasks. |
+| **js-code-sandbox** | ⛔ **DISABLED** | **LLM02: Insecure Output Handling** | Prevents the model from executing JavaScript/TypeScript code via the sandbox integration, reducing risk from unsafe code paths. |
+| **Local API Server (port 1234)** | ⛔ **DISABLED** | **LLM10: Model Theft** / **LLM04: Model DoS** | Disables the local HTTP service (default port 1234) to reduce unauthorized access, model extraction via high-volume querying, and remote-triggered resource exhaustion. |
+| **rag-v1** (Docs) | ⚠️ **RESTRICTED** | **LLM06: Sensitive Info Disclosure** | Document ingestion is restricted to a dedicated encrypted workspace (`C:\LLM_GRC_Research\Vetted_Docs`) to reduce accidental inclusion of unredacted sensitive data. |
+| **Context Window** | 🔒 **CAPPED** | **LLM04: Model DoS** | Caps context to reduce resource exhaustion and instability during large-prompt workloads. |
+| **Model weights + logs** | 🔐 **ENCRYPTED** | **LLM10: Model Theft** | Model files (e.g., `.gguf`) and sensitive artifacts are stored on a VeraCrypt-encrypted volume to reduce unauthorized extraction risk. |
 
-### 🔍 Threat Detection (Local Monitoring)
+### 🔍 Threat Detection & Operational Safeguards (Local)
 
-Five specific OWASP threats are monitored directly through local prompt and response analysis:
+This workstation addresses five OWASP threats using local monitoring plus operational controls:
 
-- **LLM01: Prompt Injection**: Monitored via regex patterns for instructions attempting to override system prompts (e.g., *"Ignore previous instructions"*).
-- **LLM02: Insecure Output Handling**: All model outputs are treated as untrusted; code blocks are reviewed manually before use.
-- **LLM06: Sensitive Information Disclosure**: Inputs are pre-scanned for PII (SSN, API keys) to prevent data from entering the chat history.
-- **LLM10: Model Theft**: Physical access controls (VeraCrypt, Lock Screen) prevent unauthorized extraction of the model or chat logs.
+- **LLM01: Prompt Injection**: Flag suspicious override/exfiltration phrasing; review for instruction-hijacking attempts.
+- **LLM02: Insecure Output Handling**: Treat outputs as untrusted; manually review code blocks before reuse.
+- **LLM04: Model Denial of Service**: Monitor latency/tok-sec and GPU/VRAM utilization; enforce token/context caps.
+- **LLM06: Sensitive Information Disclosure**: Pre-scan prompts for secrets/PII patterns; avoid pasting credentials; restrict RAG to sanitized docs.
+- **LLM10: Model Theft**: Keep API server disabled; encrypt model storage; lock workstation when unattended.
 
 ---
 
 **References**:
-- [OWASP Top 10 for LLM Applications (2025)](https://genai.owasp.org/)
-- [OWASP AI Security Center of Excellence Guide](https://genai.owasp.org/)
+- [OWASP GenAI Project](https://genai.owasp.org/)
+- [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
 
 ---
 
