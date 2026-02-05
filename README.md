@@ -1,8 +1,8 @@
 # 🔒 Offline AI Security Workstation (Local LLM for GRC/Security)
 
 [![LM Studio](https://img.shields.io/badge/LM%20Studio-0.4.1-blue)](https://lmstudio.ai/docs/app/offline)
-[![Model (GGUF)](https://img.shields.io/badge/Model-lmstudio--community%2FQwen3--14B--GGUF-green?logo=huggingface)](https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF)
-[![Base Model](https://img.shields.io/badge/Base%20Model-Qwen%2FQwen3--14B-green?logo=huggingface)](https://huggingface.co/Qwen/Qwen3-14B)
+[![Model (GGUF)](https://img.shields.io/badge/Model-Qwen3--14B%20GGUF-green?logo=huggingface)](https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF)
+[![Quant](https://img.shields.io/badge/Quant-Q4__K__M-green)](https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF/tree/main)
 [![Backend](https://img.shields.io/badge/Backend-Vulkan-red?logo=vulkan)](https://www.vulkan.org/)
 
 > **Offline-first local LLM setup for GRC and Security Analyst work** (threat modeling, compliance documentation, policy drafting, and IR planning) designed to reduce third‑party data exposure.
@@ -12,6 +12,7 @@
 ## Contents
 - [Project goal](#project-goal)
 - [System specifications](#system-specifications)
+- [Offline assurance](#offline-assurance)
 - [Model provenance (supply chain)](#model-provenance-supply-chain)
 - [Evidence (proof of execution)](#evidence-proof-of-execution)
 - [Setup guide (step-by-step)](#setup-guide-step-by-step)
@@ -23,7 +24,6 @@
 
 ---
 
-<a id="project-goal"></a>
 ## 🎯 Project goal
 
 **Requirement:** Run a reasoning-capable LLM locally to support GRC/security workflows while minimizing data-exposure risk.
@@ -40,7 +40,6 @@
 
 ---
 
-<a id="system-specifications"></a>
 ## 🖥️ System specifications
 
 ### Hardware
@@ -53,67 +52,79 @@
 ### Software stack (this build)
 - **Client:** LM Studio 0.4.1
 - **Backend:** Vulkan
-- **Model (GGUF):** `lmstudio-community/Qwen3-14B-GGUF`
-- **Quantization used:** `Q4_K_M` (size varies by file; record exact hash in `MODEL_HASHES.md`)
+- **Model (GGUF):** `lmstudio-community/Qwen3-14B-GGUF` [Source: HF listing]
+- **Quantization used (this workstation):** `Q4_K_M`
+  - **File:** `Qwen3-14B-Q4_K_M.gguf`
+  - **File size:** 9,001,753,376 bytes
+  - **SHA-256:** `712C0791D5124D3DD6D1E4968DE1201207AFEAE49C6E10FBEB9C58FE00C58555`
 
-### Offline assurance (vendor documentation)
-LM Studio states: **“Nothing you enter into LM Studio when chatting with LLMs leaves your device.”**  
-Source: https://lmstudio.ai/docs/app/offline
+---
 
-#### Offline behavior checklist (per vendor docs)
-**Does NOT require connectivity (after model is downloaded):**
+## ✅ Offline assurance
+
+LM Studio states: **“Nothing you enter into LM Studio when chatting with LLMs leaves your device.”** [Source: LM Studio Offline Operation docs] [page:4]
+
+The same documentation states LM Studio can operate entirely offline once model files are downloaded and clarifies which features do/don’t require connectivity. [page:4]
+
+### Offline behavior checklist (per vendor docs) [page:4]
+
+**Operations that do NOT require connectivity (after you have a model file):**
 - Using downloaded LLMs
 - Chatting with documents (RAG)
 - Running a local server
 
-**Requires connectivity:**
-- Searching for models / Discover catalog
+**Operations that require connectivity:**
+- Searching for models (Discover)
 - Downloading new models
+- Viewing up-to-date Discover catalog stats/download options
 - Downloading runtimes
 - Checking for app updates
 
+> [!NOTE]
+> If you drag-and-drop documents for RAG, LM Studio states the documents stay on your machine and processing is done locally. [page:4]
+
 ---
 
-<a id="model-provenance-supply-chain"></a>
 ## 🧾 Model provenance (supply chain)
 
-This build uses the **LM Studio Community** Hugging Face listing:
+This build uses the **LM Studio Community** Hugging Face listing:  
+https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF [web:45]
 
-- **Community listing (GGUF):** https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF
-- **Base model (reference):** https://huggingface.co/Qwen/Qwen3-14B
-- **Quantization provenance:** The community listing attributes the GGUF quantization to **`bartowski`** and references a `llama.cpp` release in its details.
+The listing states:  
+- **Model creator:** Qwen  
+- **Original model:** `Qwen3-14B`  
+- **GGUF quantization:** provided by **`bartowski`** based on `llama.cpp` release **b5200** [web:45]
 
-> [!NOTE]
-> **Integrity practice (recommended):** Record SHA-256 hashes of the exact `.gguf` file you downloaded and store them in this repo (or private notes) to support reproducibility and supply-chain review.
+The listing also states it supports:
+- **YaRN long context** up to 131,072 tokens (default 32k) [web:45]
+- **`/no_think`** to disable reasoning by adding it to the end of the prompt [web:45]
 
-> [!TIP]
-> Add `MODEL_HASHES.md` to this repo and record your exact filename, SHA-256, and date.
+> [!IMPORTANT]
+> For supply-chain hygiene, record model hashes and keep them in-repo for reviewers.
 
 ---
 
-<a id="evidence-proof-of-execution"></a>
 ## 📋 Evidence (proof of execution)
 
 All evidence images are stored in `screenshots/` (lowercase).
 
 ### Vulkan backend detection
-![AMD RX 6700 XT detected with Vulkan](screenshots/hardware-vulkan.png)
+![AMD RX 6700 XT detected with Vulkan](screenshots/hardware-vulkan.png)  
 *Example: LM Studio detecting Vulkan backend and GPU offload.*
 
 ### Reasoning mode example
-![Threat modeling with thinking mode](screenshots/reasoning-mode-output.png)
+![Threat modeling with thinking mode](screenshots/reasoning-mode-output.png)  
 *Observed on my hardware: reasoning-enabled response for a threat modeling prompt.*
 
 ### Fast mode example (`/no_think`)
-![Fast mode with no thinking](screenshots/fast-mode-output.png)
+![Fast mode with no thinking](screenshots/fast-mode-output.png)  
 *Observed on my hardware: fast response mode using `/no_think`.*
 
 > [!TIP]
-> If you include performance numbers (tok/s, VRAM), label them as **observed on my hardware** and capture them in the screenshot to avoid “benchmark” ambiguity.
+> When reporting tok/s and VRAM usage, label it as **observed on my hardware** and capture it in screenshots to avoid universal benchmark claims.
 
 ---
 
-<a id="setup-guide-step-by-step"></a>
 ## 🛠️ Setup guide (step-by-step)
 
 ### Prerequisites
@@ -128,23 +139,22 @@ All evidence images are stored in `screenshots/` (lowercase).
 4. Set **GPU offload** as high as stable for your VRAM
 
 ### 2) Download the model
-1. Open **Discover** (internet required for search/download)
+1. Open **Discover** (internet required for search/download) [page:4]
 2. Search: `Qwen3 14B`
 3. Select the Hugging Face source: `lmstudio-community/Qwen3-14B-GGUF`
-4. Download the `Q4_K_M` GGUF file
+4. Download the `Q4_K_M` GGUF file (`Qwen3-14B-Q4_K_M.gguf`)
 
 ### 3) Run offline
 1. After download, disconnect from the internet
-2. Start a new chat and confirm generation works offline
+2. Start a new chat and confirm generation works offline [page:4]
 3. Optional: enforce OS firewall rules to block LM Studio from any outbound traffic during sensitive sessions
 
 ---
 
-<a id="security-hardening-owasp-llm-top-10-2025"></a>
 ## 🛡️ Security hardening (OWASP LLM Top 10 2025)
 
 Mapped to the **OWASP Top 10 for LLM Applications 2025** (official PDF):  
-https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf
+https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf [page:1]
 
 ### Configuration controls (client + OS)
 
@@ -158,6 +168,7 @@ https://owasp.org/www-project-top-10-for-large-language-model-applications/asset
 | Resource caps | Keep context within stable limits for your GPU | **LLM10:2025 Unbounded Consumption** | Limits resource exhaustion and instability. |
 | RAG ingestion (if used) | Only ingest vetted documents in a controlled folder | **LLM04:2025 Data and Model Poisoning** + **LLM08:2025 Vector and Embedding Weaknesses** | Limits poisoning and embedding/RAG attacks. |
 | Human validation | Verify compliance claims with primary sources | **LLM09:2025 Misinformation** | Prevents hallucinated citations/control references from entering deliverables. |
+| Data-at-rest protection | Enable disk encryption (BitLocker/VeraCrypt) for model + logs | **LLM02:2025 Sensitive Information Disclosure** | Offline reduces data-in-transit risk, but local storage remains a target. |
 
 ### Operational safeguards (human controls)
 - **HITL always:** Treat the LLM as a drafting assistant; you remain accountable for final compliance interpretations.
@@ -166,7 +177,6 @@ https://owasp.org/www-project-top-10-for-large-language-model-applications/asset
 
 ---
 
-<a id="grc--security-use-cases"></a>
 ## 💼 GRC & Security use cases
 
 ### 📚 Prompt library
@@ -179,7 +189,6 @@ https://owasp.org/www-project-top-10-for-large-language-model-applications/asset
 
 ---
 
-<a id="known-limitations"></a>
 ## ⚠️ Known limitations
 
 1. **Hallucinations:** LLMs can fabricate citations, controls, or requirements—validate against primary sources.
@@ -190,23 +199,22 @@ https://owasp.org/www-project-top-10-for-large-language-model-applications/asset
 
 ---
 
-<a id="license--professional-disclaimer"></a>
 ## ⚖️ License & professional disclaimer
 
 - **Documentation license:** MIT (see [LICENSE](LICENSE))
-- **Model listing used:** https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF
-- **LM Studio offline docs:** https://lmstudio.ai/docs/app/offline
-- **OWASP LLM Top 10 (2025 PDF):** https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf
+- **Model listing used:** https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF [web:45]
+- **LM Studio offline docs:** https://lmstudio.ai/docs/app/offline [page:4]
+- **OWASP LLM Top 10 (2025 PDF):** https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf [page:1]
 
 > [!CAUTION]
 > **No legal or regulatory advice:** This repository is for demonstration and productivity purposes. All outputs must be reviewed by qualified professionals.
 
 ---
 
-<a id="related-files"></a>
 ## 📄 Related files
+
 - **[PROMPT_LIBRARY.md](PROMPT_LIBRARY.md)** — Curated GRC prompt set
-- **[MODEL_HASHES.md](MODEL_HASHES.md)** — Model integrity hashes (recommended)
+- **[MODEL_HASHES.md](MODEL_HASHES.md)** — SHA-256 integrity hashes for the exact GGUF used
 - **[screenshots/](screenshots/)** — Evidence screenshots
 - **[LICENSE](LICENSE)** — MIT license for this documentation
 
