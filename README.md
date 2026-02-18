@@ -221,16 +221,13 @@ Mapped to the **OWASP Top 10 for LLM Applications 2025** (official PDF):
 ---
 
 **Project Author:** [https://github.com/SpadaSchiavonesca](https://github.com/SpadaSchiavonesca)  
-**Last Updated:** 2026-02-05  
+**Last Updated:** 2026-02-18  
 **Version:** 2.0
 
 *Built with LM Studio 0.4.1 | Model: lmstudio-community/Qwen3-14B-GGUF (Q4_K_M) | Offline-first GRC workstation*
-
-**Last Updated:** 2026-02-18
 
 ---
 
 [^lmstudio-offline]: LM Studio — Offline Operation docs: https://lmstudio.ai/docs/app/offline
 [^hf-qwen3]: Hugging Face — lmstudio-community/Qwen3-14B-GGUF: https://huggingface.co/lmstudio-community/Qwen3-14B-GGUF
 [^owasp-llm10-2025]: OWASP — Top 10 for LLM Applications (2025 PDF): https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf
-
