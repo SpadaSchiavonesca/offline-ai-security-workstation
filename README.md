@@ -126,26 +126,33 @@ All evidence images are stored in `screenshots/` (lowercase).
 ## 🛠️ Setup guide (step-by-step)
 
 ### Prerequisites
-- **OS:** Windows 10/11
-- **Hardware:** AMD GPU (Vulkan) or NVIDIA GPU (CUDA) with 8GB+ VRAM
-- **Disk:** ~20GB free
+- [ ] **OS:** Windows 10/11
+- [ ] **Hardware:** AMD GPU (Vulkan) or NVIDIA GPU (CUDA) with 8GB+ VRAM
+- [ ] **Disk:** ~20GB free
 
 ### 1) Install & configure LM Studio
-1. Download and install: [https://lmstudio.ai](https://lmstudio.ai)
-2. Open **Settings → Hardware**
-3. Ensure **GPU acceleration** is enabled and your backend is detected (Vulkan for AMD, if available)
-4. Set **GPU offload** as high as stable for your VRAM
+- [ ] Download and install: [https://lmstudio.ai](https://lmstudio.ai)
+- [ ] Open **Settings → Hardware**
+- [ ] Ensure **GPU acceleration** is enabled and your backend is detected (Vulkan for AMD, if available)
+- [ ] Set **GPU offload** as high as stable for your VRAM
 
-### 2) Download the model
-1. Open **Discover** (internet required for search/download)[^lmstudio-offline]
-2. Search: `Qwen3 14B`
-3. Select the Hugging Face source: `lmstudio-community/Qwen3-14B-GGUF`
-4. Download the `Q4_K_M` GGUF file (`Qwen3-14B-Q4_K_M.gguf`)
+### 2) Download & verify model
+- [ ] Open **Discover** (internet required for search/download)[^lmstudio-offline]
+- [ ] Search: `Qwen3 14B`
+- [ ] Select the Hugging Face source: `lmstudio-community/Qwen3-14B-GGUF`
+- [ ] Download the `Q4_K_M` GGUF file (`Qwen3-14B-Q4_K_M.gguf`)
+- [ ] **Verify integrity (PowerShell):**
+  ```powershell
+  cd $env:USERPROFILE\.cache\lm-studio\models\ # (Adjust path if custom)
+  Get-FileHash .\Qwen3-14B-Q4_K_M.gguf -Algorithm SHA256
+  # Confirm output matches: 712C0791D5124D3DD6D1E4968DE1201207AFEAE49C6E10FBEB9C58FE00C58555
+  # If hashes do NOT match: delete the file and re-download from the verified source.
+  ```
 
 ### 3) Run offline
-1. After download, disconnect from the internet
-2. Start a new chat and confirm generation works offline[^lmstudio-offline]
-3. Optional: enforce OS firewall rules to block LM Studio from any outbound traffic during sensitive sessions
+- [ ] After download, disconnect from the internet
+- [ ] Start a new chat and confirm generation works offline[^lmstudio-offline]
+- [ ] Optional: enforce OS firewall rules to block LM Studio from any outbound traffic during sensitive sessions
 
 ---
 
@@ -158,21 +165,21 @@ Mapped to the **OWASP Top 10 for LLM Applications 2025** (official PDF):
 
 | Control area | Action (offline workstation) | OWASP risk mapped | Rationale |
 | :--- | :--- | :--- | :--- |
-| Untrusted content handling | Treat vendor docs/tickets as untrusted input | **LLM01:2025 Prompt Injection** | Reduces injection success and instruction hijacking. |
+| Untrusted content handling | Treat vendor docs/tickets as untrusted input | **LLM01:2025 Prompt Injection** | Mitigates **Indirect Prompt Injection** where hidden text in analyzed docs (e.g., phishing emails, vendor PDFs) attempts to hijack model instructions. |
 | Sensitive data handling | Never paste secrets/PII; use redaction templates; encrypt local data/logs (BitLocker/VeraCrypt) | **LLM02:2025 Sensitive Information Disclosure** | Reduces chance of sensitive data exposure via prompts, outputs, or local storage. |
 | Provenance verification | Prefer reputable sources; record hashes | **LLM03:2025 Supply Chain** | Reduces risk of tampered weights or repackaged artifacts. |
 | RAG ingestion (if used) | Only ingest vetted documents in a controlled folder | **LLM04:2025 Data and Model Poisoning** | Limits poisoning/backdoors via untrusted or manipulated source content. |
-| Avoid executing model output | Don’t run generated scripts without review/testing | **LLM05:2025 Improper Output Handling** | Model output is untrusted input to your systems. |
+| Avoid executing model output | Don’t run generated scripts; **do not copy-paste directly into audit tools** (e.g., Drata/Vanta) | **LLM05:2025 Improper Output Handling** | Model output is untrusted input; prevents Cross-Site Scripting (XSS) or logic errors in downstream compliance tools. |
 | Disable unnecessary “agent/tool” features | Turn off tool connectors/integrations you do not need | **LLM06:2025 Excessive Agency** | Prevents the model from gaining external action capability. |
 | System prompt protection | Keep system prompts free of secrets; don’t log/echo system prompts; disable any “show prompt/debug prompt” features | **LLM07:2025 System Prompt Leakage** | Prevents leakage of guardrails/instructions that can expose sensitive info or weaken defenses. |
 | Vector store security (if using embeddings/RAG) | Apply access controls + dataset/namespace separation; use metadata filters/allowlists; monitor for retrieval anomalies | **LLM08:2025 Vector and Embedding Weaknesses** | Reduces embedding/vector-store abuse that can cause unauthorized retrieval, leakage, or manipulated context. |
 | Human validation | Verify compliance claims with primary sources | **LLM09:2025 Misinformation** | Prevents hallucinated citations/control references from entering deliverables. |
 | Resource caps | Keep context within stable limits for your GPU | **LLM10:2025 Unbounded Consumption** | Limits resource exhaustion and instability. |
 
-
 ### Operational safeguards (human controls)
 - **HITL always:** Treat the LLM as a drafting assistant; you remain accountable for final compliance interpretations.
 - **Two-source rule:** For audit-facing claims, confirm against at least one primary source (NIST, HHS, PCI SSC, AICPA) plus one independent reference when possible.
+- **Update hygiene:** Verify that "Data Collection" settings remain **OFF** after every LM Studio application update, as defaults may reset.
 - **Change control:** Log model/version changes when re-running past analyses for consistency.
 
 ---
@@ -195,7 +202,7 @@ Mapped to the **OWASP Top 10 for LLM Applications 2025** (official PDF):
 2. **Large frameworks:** Very large documents require chunking and iterative passes.
 3. **Offline is not “secure by itself”:** It reduces data-in-transit exposure; you still must secure data-at-rest and endpoint access.
 4. **Community artifacts:** Community GGUF conversions/quantizations are useful but require provenance hygiene (hashes, source validation).
-5. **12GB VRAM note:** 14B-class models can be tight at large context sizes; if you see OOM errors or major slowdowns, reduce context length and/or reduce GPU offload.
+5. **12GB VRAM vs. Context:** While the model supports 131k tokens, the physical 12GB VRAM limits effective context to approximately **8k–16k tokens** on this hardware. Exceeding this will force offloading to system RAM, drastically reducing performance.
 
 ---
 
